@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Amazon/Admob/Flurry" />
+
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="899ae69beb1f4f3f"
+        ads:loadAdOnCreate="false"
+        ads:testDevices="TEST_DEVICE_ID_GOES_HERE" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Admob" />
+
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="f209310e9d114cf9"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="TEST_DEVICE_ID_GOES_HERE" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Amazon" />
+
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="c8632e68f10c4a00"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="TEST_DEVICE_ID_GOES_HERE" />
+ 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Flurry" />
+
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="44e43b17382544c6"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="TEST_DEVICE_ID_GOES_HERE" />
+    
+</LinearLayout>
