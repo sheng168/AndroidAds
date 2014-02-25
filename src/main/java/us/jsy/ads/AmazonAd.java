@@ -1,6 +1,7 @@
 package us.jsy.ads;
 
 import android.app.Activity;
+import android.util.Log;
 //import android.app.ActionBar.LayoutParams;
 import android.view.Gravity;
 import android.widget.FrameLayout;
@@ -17,20 +18,44 @@ import com.google.ads.mediation.MediationAdRequest;
 import com.google.ads.mediation.customevent.CustomEventBanner;
 import com.google.ads.mediation.customevent.CustomEventBannerListener;
 
+//import com.google.
+
 
 public class AmazonAd implements CustomEventBanner {
+    AdLayout adLayout;
+
+    private AdLayout getAdLayout(Activity activity) {
+        if (adLayout == null) {
+            adLayout = new AdLayout(activity, com.amazon.device.ads.AdSize.SIZE_320x50);
+
+            LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+            adLayout.setLayoutParams(layoutParams);
+        }
+
+        return adLayout;
+    }
+
+    @Override
+    public void destroy() {
+        // Clean up custom event variables.
+        if (adLayout != null) {
+            adLayout.destroy();
+            adLayout = null;
+        }
+    }
+
 	@Override
 	public void requestBannerAd(final CustomEventBannerListener listener,
 			final Activity activity, String label, String serverParameter,
 			AdSize adSize, MediationAdRequest request, Object customEventExtra) {
-		
+//		serverParameter = "3789793d6b13462ca76e93dfce6c6d2f";
+		Log.d(this.getClass().getSimpleName(), "appKey " + serverParameter);
 		AdRegistration.setAppKey(serverParameter);
-		
-		final AdLayout adLayout = new AdLayout(activity, com.amazon.device.ads.AdSize.SIZE_320x50);
-		
-        LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-        		LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-		adLayout.setLayoutParams(layoutParams);
+		AdRegistration.enableTesting(false);
+		AdRegistration.enableLogging(true);
+
+        final AdLayout adLayout = getAdLayout(activity);
 		
 		adLayout.setListener(new AdListener() {			
 			@Override
@@ -39,8 +64,9 @@ public class AmazonAd implements CustomEventBanner {
 			}
 			
 			@Override
-			public void onAdFailedToLoad(AdLayout arg0, AdError arg1) {
+			public void onAdFailedToLoad(AdLayout arg0, AdError err) {
 				listener.onFailedToReceiveAd();
+				Log.e(AmazonAd.this.getClass().getSimpleName(), err.getMessage());
 			}
 			
 			@Override
@@ -57,6 +83,7 @@ public class AmazonAd implements CustomEventBanner {
 		});
 		
 		AdTargetingOptions adOptions = new AdTargetingOptions();
+//		adOptions.
 		adLayout.loadAd(adOptions);
         
 //		ImageView imageView = new ImageView(activity);
@@ -87,8 +114,4 @@ public class AmazonAd implements CustomEventBanner {
 		 */
 	}
 
-	@Override
-	public void destroy() {
-		// Clean up custom event variables.
-	}
 }
